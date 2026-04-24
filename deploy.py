@@ -52,6 +52,8 @@ def modify_vmx(vm_data, type):
         iso_path = 'day0-utmph.iso' 
     elif name == 'UTM-JP':
         iso_path = 'day0-utmjp.iso'
+    elif name == 'UTM-US':
+        iso_path = 'day0-utmus.iso'
     elif name == 'UTM':
         iso_path = 'day0-utm.iso'
 
@@ -106,6 +108,7 @@ if __name__ == "__main__":
     x1 yVM  . . . . . . . . 2
     S2S-VPN Lab . . . . . . 3
     NAT-PAT Lab . . . . . . 4
+    S2S-DMVPN Lab . . . . . 5
 
 Specify an Entry > ''')
 
@@ -186,6 +189,49 @@ Specify an Entry > ''')
         generate_vmx(vm_2, yvm)
         generate_vmx(vm_3, yvm)
         generate_vmx(vm_4, yvm)
+    
+    elif deploy == '5':
+        vm_1 = {
+            'name': 'BLDG-PH',
+            'vnet_1': 'VMnet3'
+        }
+        
+        vm_2 = {
+            'name': 'UTM-PH',
+            'vnet_1': 'nat',
+            'vnet_2': 'VMnet2',
+            'vnet_3': 'VMnet3'
+        }
+
+        vm_3 = {
+            'name': 'UTM-JP',
+            'vnet_1': 'nat',
+            'vnet_2': 'VMnet2',
+            'vnet_3': 'VMnet4'
+        }
+
+        vm_4 = {
+            'name': 'BLDG-JP',
+            'vnet_1': 'VMnet4'
+        }
+
+        vm_5 = {
+            'name': 'UTM-US',
+            'vnet_1': 'nat',
+            'vnet_2': 'VMnet2',
+            'vnet_3': 'VMnet5'
+        }
+
+        vm_6 = {
+            'name': 'BLDG-US',
+            'vnet_1': 'VMnet5'
+        }
+        generate_vmx(vm_1, yvm)
+        generate_vmx(vm_2, csr)
+        generate_vmx(vm_3, csr)
+        generate_vmx(vm_4, yvm)
+        generate_vmx(vm_5, csr)
+        generate_vmx(vm_6, yvm)
     
     else:
         print('Invalid Entry. Ending Process')
